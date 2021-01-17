@@ -8,6 +8,10 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 class Images:
 
     def __init__(self, content, style1, style2, size=128):
+
+        if size == 'Auto':
+            size = self.detect_size(content)
+
         self.transforms = transforms.Compose([
             transforms.Resize(size),
             transforms.CenterCrop(size),
@@ -21,6 +25,10 @@ class Images:
         image = Image.open(image_name)
         image = self.transforms(image).unsqueeze(0)
         return image.to(device, torch.float)
+
+    def detect_size(self, image):
+        image = Image.open(image)
+        return image.size
 
 
 unloader = transforms.ToPILImage()
