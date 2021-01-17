@@ -1,7 +1,4 @@
-# This is a sample Python script.
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 import argparse
 
 from loader import Images, unloader
@@ -12,8 +9,8 @@ from transfer import run_style_transfer
 def run(args):
     images = Images(args.content, args.style1, args.style2)
     input_img = images.content.clone()
-    result = run_style_transfer(model, images.content, images.style1, images.style2, input_img)
-    result = unloader(result)
+    result = run_style_transfer(model, images.content, images.style1, images.style2, input_img, num_steps=args.iteration)
+    result = unloader(result[0])
     result.save(args.output)
 
 
@@ -27,6 +24,8 @@ if __name__ == '__main__':
                         help="Path to second parse image")
     parser.add_argument("--output", default='out.jpg',
                         help="Path to second parse image")
+    parser.add_argument("-i", "--iteration", type=int, default=300,
+                        help="Number of iterations")
 
     args = parser.parse_args()
 

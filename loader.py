@@ -20,7 +20,7 @@ class Images:
     def image_loader(self, image_name):
         image = Image.open(image_name)
         image = self.transforms(image).unsqueeze(0)
-        return image.toFloat().toDevice(device)
+        return image.to(device, torch.float)
 
 
 unloader = transforms.ToPILImage()

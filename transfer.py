@@ -1,7 +1,7 @@
 from model import get_input_optimizer, get_style_model_and_losses
 
 
-def run_style_transfer(cnn, content_img, style_img1, style_img2, input_img, num_steps=300,
+def run_style_transfer(cnn, content_img, style_img1, style_img2, input_img, num_steps=50,
                        style_weight=10000, content_weight=1, tv_weight=1):
     """Run the style transfer."""
     print('Building the style transfer model..')
