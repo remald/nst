@@ -1,12 +1,14 @@
 import torch
-from torch.distributions import transforms
+from torchvision import transforms
 from PIL import Image
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 class Images:
 
     def __init__(self, content, style1, style2, size=128):
-        self.transorms = transforms.Compose([
+        self.transforms = transforms.Compose([
             transforms.Resize(size),
             transforms.CenterCrop(size),
             transforms.ToTensor()])
@@ -17,5 +19,8 @@ class Images:
 
     def image_loader(self, image_name):
         image = Image.open(image_name)
-        image = self.transorms(image).unsqueeze(0)
-        return image.toFloat()
+        image = self.transforms(image).unsqueeze(0)
+        return image.toFloat().toDevice(device)
+
+
+unloader = transforms.ToPILImage()
