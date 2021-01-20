@@ -13,3 +13,5 @@ Options:
 --style2 - path to style image 2
 
 --iterations, -i - number of iterations
+
+--size, -i - size of result picture
